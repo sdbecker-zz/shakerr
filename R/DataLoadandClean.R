@@ -20,10 +20,10 @@
 #' @export
 eq_clean_data <- function(data){
 
-  year <- as.character(abs(data$YEAR)) # convert to character to pad years
+  year <- as.character(abs(data[["YEAR"]])) # convert to character to pad years
   year <- stringr::str_pad(year, 4, "left", pad = 0)
-  month <- as.character(data$MONTH)
-  day <- as.character(data$DAY)
+  month <- as.character(data[["MONTH"]])
+  day <- as.character(data[["DAY"]])
   era <- ifelse(data$YEAR < 0, "BC", "AD") # classify AD and BC
 
   # NAs are converted to the first of whatever the date in terms of year or
@@ -34,12 +34,15 @@ eq_clean_data <- function(data){
 
   datum <- lubridate::ymd(paste0(year,"-", month, "-", day))
 
+  lat <- as.numeric(data[["LATITUDE"]])
+  lon <- as.numeric(data[["LONGITUDE"]])
+
   # Add in the correctly formated date and era and extract the unnecessary
   # fields.
   cldata <- dplyr::mutate(data, DATE = datum, ERA = era,
-                        LATITUDE = as.numeric(LATITUDE),
-                        LONGITUDE = as.numeric(LONGITUDE)) %>%
-    dplyr::select(-YEAR,-MONTH,-DAY)
+                        LATITUDE = lat,
+                        LONGITUDE = lon) %>%
+    dplyr::select_(quote(-YEAR),quote(-MONTH),quote(-DAY))
 
   return(cldata)
 
