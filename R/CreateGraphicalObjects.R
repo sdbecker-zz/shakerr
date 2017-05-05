@@ -9,24 +9,31 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                     alpha = 0.5, stroke = 0.5, y = 1
                   ),
                   draw_key = ggplot2::draw_key_point,
-                  draw_panel = function(data, panel_params, coord) {
+                  draw_group = function(data, panel_params, coord) {
 
                     data <- dplyr::select_(data, quote(-x_min),
                                            quote(-x_max))
                   coords <- coord$transform(data, panel_params)
-                  ggplot2:::ggname("geom_point",
-                    grid::pointsGrob(
+                  ln <- grid::linesGrob(
+                    x = c(0,1),
+                    y = coords$y,
+                    gp = grid::gpar(col = "lightgray")
+                  )
+                  pnt <- grid::pointsGrob(
                     coords$x, coords$y,
                     pch = coords$shape,
                     gp = grid::gpar(
-                    col = alpha(coords$colour, coords$alpha),
-                    fill = alpha(coords$fill, coords$alpha),
+                    col = ggplot2::alpha(coords$colour, coords$alpha),
+                    fill = ggplot2::alpha(coords$fill, coords$alpha),
                      # Stroke is added around the outside of the point
-                    fontsize = coords$size * .pt + coords$stroke * .stroke / 2,
-                    lwd = coords$stroke * .stroke / 2
+                    fontsize = coords$size * ggplot2::.pt + coords$stroke * ggplot2::.stroke / 2,
+                    lwd = coords$stroke * ggplot2::.stroke / 2
                         )
                       )
-                    )
+                  grlist <- grid::gList(ln, pnt)
+                  lbl <- grid::gTree(children = grlist)
+
+                  return(lbl)
              }
 )
 
@@ -48,7 +55,7 @@ geom_timeline <- function(mapping = NULL, data = NULL,
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -68,8 +75,9 @@ geom_timeline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
-                       compute_group = function(data, scales,x_min, x_max) {
-                         ## Compute the line segment endpoints
+
+                       setup_data = function(data, params){
+
                          xmin_num <- as.numeric(as.Date(data$x_min))
                          xmax_num <- as.numeric(as.Date(data$x_max))
 
@@ -77,8 +85,14 @@ StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
                          data <- data[blflt,]
                          return(data)
                        },
+
                        default_aes = ggplot2::aes(y = 1),
-                       required_aes = "x"
+                       required_aes = "x",
+
+                       compute_group = function(data, scales,x_min, x_max) {
+                         return(data)
+                       }
+
 )
 
 #' Stat function to support Stat class
@@ -94,7 +108,8 @@ StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
 #' @export
 stat_timeline <- function(mapping = NULL, data = NULL, geom = "timeline",
                          position = "identity", na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+                         show.legend = NA, inherit.aes = TRUE, x_min,
+                         x_max, ...) {
   ggplot2::layer(
     stat = StatTimeline,
     data = data,
@@ -103,6 +118,6 @@ stat_timeline <- function(mapping = NULL, data = NULL, geom = "timeline",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list(na.rm = na.rm, x_min, x_max, ...)
   )
 }
