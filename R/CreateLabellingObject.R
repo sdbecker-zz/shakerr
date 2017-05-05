@@ -4,9 +4,12 @@
 #' @export
 GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
                                  required_aes = c("x","label"),
-                                 default_aes = ggplot2::aes( y = 0),
+                                 default_aes = ggplot2::aes( y = 1, x_min = NA,
+                                                             x_max = NA,
+                                                             col = NA,
+                                                             magnitude = NA),
 
-                                 draw_panel = function(data, panel_params, coord) {
+                                 draw_group = function(data, panel_params, coord) {
 
                                    coords <- coord$transform(data, panel_params)
 
@@ -72,25 +75,30 @@ geom_timelinelabel <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
-                          default_aes = ggplot2::aes(y = 1),
-                         required_aes = c("x", "magnitude", "x_min",
-                                          "x_max"),
+
+                         default_aes = ggplot2::aes(y = 1),
+
+                         required_aes = "x",
 
                          setup_data = function(data, params){
 
-                           xmin_num <- as.numeric(as.Date(data$x_min))
-                           xmax_num <- as.numeric(as.Date(data$x_max))
+                           xmin_num <- as.numeric(as.Date(params$x_min))
+                           xmax_num <- as.numeric(as.Date(params$x_max))
 
                            blflt <- data$x >= xmin_num & data$x <= xmax_num
                            data <- data[blflt,]
                            return(data)
                          },
 
-                         compute_group = function(data, scales,n_max = 4) {
+                         compute_group = function(data, scales, x_min,
+                                                  x_max,n_max) {
+
+                           max_n <- min(n_max[[1]], nrow(data))
 
                            srtind <- sort(data$magnitude,
+                                      decreasing = TRUE,
                                       index.return = TRUE)
-                           tpind <- srtind$ix[1:n_max[[1]]]
+                           tpind <- srtind$ix[1:max_n]
 
                            rtdat <- data[tpind,]
 
@@ -107,12 +115,18 @@ StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   \code{color = "red"} or \code{size = 3}. They may also be parameters
 #'   to the paired geom/stat.
+#' @param x_min An atomic character representing the low of a date range.
+#'
+#' @param x_max An atomic character representing the high of a date range.
+#'
+#' @param n_max An atomic numeric holding the number of top earthquakes by
+#' magnitude to label.
 #'
 #' @export
 stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabel",
                           position = "identity", na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, n_max = NA,
-                           ...) {
+                          show.legend = NA, inherit.aes = TRUE,x_min = NA,
+                          x_max = NA, n_max = NA, ...) {
   ggplot2::layer(
     stat = StatTimelinelabel,
     data = data,
@@ -121,6 +135,7 @@ stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabe
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, n_max = n_max, ...)
+    params = list(na.rm = na.rm, x_min = x_min, x_max = x_max,
+                  n_max = n_max, ...)
   )
 }

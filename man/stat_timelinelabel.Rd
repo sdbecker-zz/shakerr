@@ -6,7 +6,7 @@
 \usage{
 stat_timelinelabel(mapping = NULL, data = NULL, geom = "timelinelabel",
   position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, n_max = NA, ...)
+  inherit.aes = TRUE, x_min = NA, x_max = NA, n_max = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -44,6 +44,13 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
+
+\item{x_min}{An atomic character representing the low of a date range.}
+
+\item{x_max}{An atomic character representing the high of a date range.}
+
+\item{n_max}{An atomic numeric holding the number of top earthquakes by
+magnitude to label.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like

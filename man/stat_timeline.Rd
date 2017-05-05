@@ -45,6 +45,10 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
+\item{x_min}{An atomic character representing the low of a date range.}
+
+\item{x_max}{An atomic character representing the high of a date range.}
+
 \item{...}{other arguments passed on to \code{\link{layer}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
