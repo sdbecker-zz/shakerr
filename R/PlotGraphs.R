@@ -75,4 +75,32 @@ quaketimelinelabel_plot <- function(eqdata, x_min, x_max, n_max){
    return(gr)
 }
 
+#' Plot Epicentre of Earthquakes on a Map
+#'
+#' \code{eq_map} Will use a map to plot the location of the epicentre of an
+#' earthquake. The plot will be done using a circle, with the radius of the
+#' circle indicative of the magnitude of the earthquake.
+#'
+#' @param df The data frame holding the longitude and latitudes for the
+#' epicentres of the earthquakes.
+#'
+#' @param annot_col An atomic character holding the field name of the column
+#' to display on the map.
+#'
+#' @return Return a leaflet map
+#'
+#' @export
+eq_map <- function(df, annot_col){
+
+  #ensures that only data points with long and lat will work.
+  df <- df[!is.na(df[["LONGITUDE"]]),]
+
+  anno_vec <- df[[annot_col]]
+  mp <- leaflet::leaflet(df) %>% leaflet::addTiles() %>%
+    leaflet::addCircleMarkers(lng = ~LONGITUDE, lat = ~ LATITUDE,
+                              radius = ~EQ_PRIMARY, popup = anno_vec)
+
+  return(mp)
+
+}
 
