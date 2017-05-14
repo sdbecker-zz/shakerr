@@ -104,3 +104,34 @@ eq_map <- function(df, annot_col){
 
 }
 
+#'Create an HTML Label
+#'
+#'\code{eq_create_label} Creates a label using HTML in order to label points
+#'on a map.
+#'
+#'@param df A data frame holding all the information of the earthquake data
+#'
+#'@return an HTML label for the point on a map.
+#'
+#'@export
+eq_create_label <- function(df){
+
+  mgn <- as.numeric(df[["EQ_PRIMARY"]])
+  dths <- as.numeric(df[["DEATHS"]])
+
+  locname <- ifelse(is.na(df[["LOCATION_NAME"]]), "" ,
+         paste0("<b>Location: </b>",df[["LOCATION_NAME"]],"<br>"))
+
+  magnitude <- ifelse(is.na(mgn), "",
+                            paste0("<b>Magnitude: </b>",
+                                   df[["EQ_PRIMARY"]],"<br>"))
+
+  deaths <- ifelse(is.na(dths), "",
+                   paste0("<b>Total deaths: </b>",df[["DEATHS"]]))
+
+  lbl <- paste0(locname, magnitude, deaths)
+
+  return(lbl)
+
+}
+

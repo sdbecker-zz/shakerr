@@ -42,7 +42,8 @@ eq_clean_data <- function(data){
   cldata <- dplyr::mutate(data, DATE = datum, ERA = era,
                         LATITUDE = lat,
                         LONGITUDE = lon) %>%
-    dplyr::select_(quote(-YEAR),quote(-MONTH),quote(-DAY))
+    dplyr::select_(quote(-YEAR),quote(-MONTH),quote(-DAY))%>%
+    eq_location_clean()
 
   return(cldata)
 
