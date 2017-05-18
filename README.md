@@ -48,19 +48,10 @@ to see if everything is running as expected.
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
+The first batch of tests check that test data can be cleaned and formatted
+appropriately. The secon batch of tests, test if the graphing functions
+work as expected.
 
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
@@ -72,7 +63,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-We use [Git](https://git-scm.com) for versioning. For the versions available,
+I used [Git](https://git-scm.com) for versioning. For the versions available,
 see the [this repository](https://github.com/sdbecker/shakerr). 
 
 ## Authors
