@@ -122,6 +122,7 @@ StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
 #' @param n_max An atomic numeric holding the number of top earthquakes by
 #' magnitude to label.
 #'
+#'
 #' @export
 stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabel",
                           position = "identity", na.rm = FALSE,
@@ -139,3 +140,6 @@ stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabe
                   n_max = n_max, ...)
   )
 }
+
+
+

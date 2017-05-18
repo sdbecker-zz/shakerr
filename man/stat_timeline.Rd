@@ -57,3 +57,9 @@ to the paired geom/stat.}
 \description{
 Stat function to support Stat class
 }
+\examples{
+require(ggplot2)
+ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")
+
+}

@@ -25,3 +25,7 @@ a ggplot2 graphic
 \code{quaketimeline_plot} plots the magnitude and number of deaths
 of earthquakes on a timeline.
 }
+\examples{
+quaketimelinelabel_plot(eq_china_cleandata, "1800-01-01","2015-01-01", 3)
+
+}

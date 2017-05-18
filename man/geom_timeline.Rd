@@ -35,9 +35,14 @@ layer, as a string.}
 a call to a position adjustment function.}
 
 \item{...}{other arguments passed on to \code{\link{layer}}. These are
-often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
-to the paired geom/stat.}
+  often aesthetics, used to set an aesthetic to a fixed value, like
+  \code{color = "red"} or \code{size = 3}. They may also be parameters
+  to the paired geom/stat.
+
+  @examples
+require(ggplot2)
+ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

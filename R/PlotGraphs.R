@@ -11,6 +11,9 @@
 #'@param x_max an atomic character designating the upper end of a date
 #'range.
 #'
+#'@examples
+#'quaketimeline_plot(eq_clean_testdata, "1000-01-01","2014-01-01")
+#'
 #'@return a ggplot2 graphic
 #'
 #'@export
@@ -46,6 +49,9 @@ quaketimeline_plot <- function(eqdata, x_min, x_max){
 #'
 #'@param n_max and atomic numeric designating the number of top earthquakes
 #'by magnitude to label.
+#'
+#'@examples
+#'quaketimelinelabel_plot(eq_china_cleandata, "1800-01-01","2015-01-01", 3)
 #'
 #'@return a ggplot2 graphic
 #'
@@ -87,6 +93,9 @@ quaketimelinelabel_plot <- function(eqdata, x_min, x_max, n_max){
 #' @param annot_col An atomic character holding the field name of the column
 #' to display on the map.
 #'
+#' @examples
+#' eq_map(eq_china_cleandata, "DATE")
+#'
 #' @return Return a leaflet map
 #'
 #' @export
@@ -110,6 +119,9 @@ eq_map <- function(df, annot_col){
 #'on a map.
 #'
 #'@param df A data frame holding all the information of the earthquake data
+#'
+#'@examples
+#'eq_create_label(eq_china_cleandata)
 #'
 #'@return an HTML label for the point on a map.
 #'

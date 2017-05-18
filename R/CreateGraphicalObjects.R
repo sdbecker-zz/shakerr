@@ -49,6 +49,11 @@ GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
 #'   \code{color = "red"} or \code{size = 3}. They may also be parameters
 #'   to the paired geom/stat.
 #'
+#'   @examples
+#' require(ggplot2)
+#' ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+#' geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")
+#'
 #' @export
 geom_timeline <- function(mapping = NULL, data = NULL,
                        stat = "timeline", position = "identity",
@@ -108,6 +113,11 @@ StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
 #' @param x_min An atomic character representing the low of a date range.
 #'
 #' @param x_max An atomic character representing the high of a date range.
+#'
+#' @examples
+#' require(ggplot2)
+#' ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+#' geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")
 #'
 #' @export
 stat_timeline <- function(mapping = NULL, data = NULL, geom = "timeline",

@@ -49,7 +49,7 @@ to see if everything is running as expected.
 ### Break down into end to end tests
 
 The first batch of tests check that test data can be cleaned and formatted
-appropriately. The secon batch of tests, test if the graphing functions
+appropriately. The second batch of tests, test if the graphing functions
 work as expected.
 
 
@@ -64,7 +64,7 @@ Add additional notes about how to deploy this on a live system
 ## Versioning
 
 I used [Git](https://git-scm.com) for versioning. For the versions available,
-see the [this repository](https://github.com/sdbecker/shakerr). 
+see [this repository](https://github.com/sdbecker/shakerr). 
 
 ## Authors
 

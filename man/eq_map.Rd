@@ -21,3 +21,7 @@ Return a leaflet map
 earthquake. The plot will be done using a circle, with the radius of the
 circle indicative of the magnitude of the earthquake.
 }
+\examples{
+eq_map(eq_china_cleandata, "DATE")
+
+}

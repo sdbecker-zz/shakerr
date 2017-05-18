@@ -16,3 +16,7 @@ an HTML label for the point on a map.
 \code{eq_create_label} Creates a label using HTML in order to label points
 on a map.
 }
+\examples{
+eq_create_label(eq_china_cleandata)
+
+}
