@@ -23,6 +23,6 @@ a ggplot2 graphic
 of earthquakes on a timeline.
 }
 \examples{
-quaketimeline_plot(eq_clean_testdata, "1000-01-01","2014-01-01")
+quaketimeline_plot(eq_clean_testdata[8:10,], "1800-01-01","2014-01-01")
 
 }
