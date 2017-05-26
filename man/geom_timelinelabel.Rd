@@ -54,3 +54,15 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \description{
 Geom to annotate earthquake graph
 }
+\examples{
+require(ggplot2)
+ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01") +
+geom_timelinelabel(ggplot2::aes_(magnitude = quote(EQ_PRIMARY),
+label = quote(LOCATION_NAME),
+col = NULL),
+x_min = "1800-01-01",
+x_max = "2015-01-01",
+n_max = 3)
+
+}

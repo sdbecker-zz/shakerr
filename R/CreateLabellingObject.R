@@ -48,6 +48,17 @@ GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
 #'   \code{color = "red"} or \code{size = 3}. They may also be parameters
 #'   to the paired geom/stat.
 #'
+#' @examples
+#' require(ggplot2)
+#' ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+#' geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01") +
+#' geom_timelinelabel(ggplot2::aes_(magnitude = quote(EQ_PRIMARY),
+#' label = quote(LOCATION_NAME),
+#' col = NULL),
+#' x_min = "1800-01-01",
+#' x_max = "2015-01-01",
+#' n_max = 3)
+#'
 #' @export
 geom_timelinelabel <- function(mapping = NULL, data = NULL,
                           stat = "timeline", position = "identity",
@@ -122,6 +133,16 @@ StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
 #' @param n_max An atomic numeric holding the number of top earthquakes by
 #' magnitude to label.
 #'
+#' @examples
+#' require(ggplot2)
+#' ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+#' geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01") +
+#' geom_timelinelabel(ggplot2::aes_(magnitude = quote(EQ_PRIMARY),
+#' label = quote(LOCATION_NAME),
+#' col = NULL),
+#' x_min = "1800-01-01",
+#' x_max = "2015-01-01",
+#' n_max = 3)
 #'
 #' @export
 stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabel",
