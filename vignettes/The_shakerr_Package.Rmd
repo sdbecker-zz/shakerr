@@ -1,0 +1,70 @@
+---
+title: "The shakerr Package"
+author: "Steven Becker"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The shakerr Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo = FALSE, message= FALSE}
+
+require(dplyr)
+require(shakerr)
+
+```
+
+
+## Introduction
+
+This package offers functionality to format earthquake data set downloaded from
+the U.S. National Oceanographic and Atmospheric Administration (NOAA).
+
+Once the data set is formatted the package offers two ways to visualize the data.
+The first way is by using a timeline graph where the magnitude and year of the
+earthquake is graphed. The second is by mapping the epicenters of a selection 
+of earthquakes directly on a map.
+
+The plots will not only show the location but the magnitude as well. 
+The line graphs will have two sub-types, one that labels the top earthquakes
+in the timeline and one that does not. Likewise the epicenter graphs will
+have two subtypes, one that gives basic information about the earthquake and
+one with a little more detail of the magnitude and number of deaths.
+
+This vignette will be split into two parts, the first will describe the
+cleaning and formatting of the data and the second the visualization of the 
+data.
+
+## Cleaning and Formatting the Data
+
+There are three types of sample data available to demonstrate the functionality
+in this package. An example of one is the `eq_test_data` data set. This data 
+set contains the magnitude and other attributes of 100 earthquakes from around 
+the world since recorded time of the NOAA database. The information for these 
+data sets may be read by running a help call `?eq_test_data` on the data set.
+
+The following demonstrates how the data set is formatted using the package 
+functionality.
+
+`eq_clean_data`: creates a Date classed field with the appropriate date format,
+and converts the longitude and latitude fields to a numeric class.
+`eq_location_clean`: reformats the location name of the earthquake.
+
+```{r}
+#Data before formatting
+head(select(eq_test_data, HOUR, MINUTE, SECOND, LONGITUDE, LATITUDE,
+                   LOCATION_NAME))
+#Formatting the data
+frm_data <- eq_clean_data(eq_test_data) %>% eq_location_clean()
+
+#Formatted data
+head(select(frm_data, DATE, LONGITUDE, LATITUDE, LOCATION_NAME))
+
+
+```
+
+Note the first data set shows the unformatted data and the second the formatted
+data.
+

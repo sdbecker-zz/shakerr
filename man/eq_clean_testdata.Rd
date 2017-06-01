@@ -13,6 +13,6 @@ eq_clean_testdata
 }
 \description{
 A clean dataset containing the magnitude and other attributes of 100 earthquakes
-form around the world since recorded time.
+fromm around the world since recorded time.
 }
 \keyword{datasets}

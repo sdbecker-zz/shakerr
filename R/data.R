@@ -11,7 +11,7 @@
 #' Clean Data from Given Data Set
 #'
 #' A clean dataset containing the magnitude and other attributes of 100 earthquakes
-#' form around the world since recorded time.
+#' fromm around the world since recorded time.
 #'
 #' @format A data frame with 100 rows and 46 variables.
 #'

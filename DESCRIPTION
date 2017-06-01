@@ -18,4 +18,7 @@ Imports: dplyr,
     lubridate,
     ggplot2,
     leaflet
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
