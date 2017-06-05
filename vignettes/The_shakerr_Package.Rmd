@@ -93,7 +93,8 @@ The second kind of visualization plots the epicenters of the selected
 earthquakes on a map. The epicenters diameter will represent the magnitude
 of the earthquake, with the each data point showing further information when
 you click on it. The first graph will present the date of the earthquake
-when you click on it. The second will offer more detail.
+when you click on it. The second will offer more detail, with location and 
+magnitude.
 
 ```{r epicenter mapping}
 
