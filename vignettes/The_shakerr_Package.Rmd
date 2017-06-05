@@ -52,7 +52,7 @@ functionality.
 and converts the longitude and latitude fields to a numeric class.
 `eq_location_clean`: reformats the location name of the earthquake.
 
-```{r}
+```{r clean and formatted}
 #Data before formatting
 head(select(eq_test_data, HOUR, MINUTE, SECOND, LONGITUDE, LATITUDE,
                    LOCATION_NAME))
@@ -67,4 +67,47 @@ head(select(frm_data, DATE, LONGITUDE, LATITUDE, LOCATION_NAME))
 
 Note the first data set shows the unformatted data and the second the formatted
 data.
+
+## Data Visualization
+
+The formatted data can be visualized into two ways, the first as a timeline and
+the second as points of occurence on a map.
+
+The following functions show how the a timeline may be graphed, with and 
+without labels. Note that with labels, the extra parameter indicating the 
+top number of earthquakes to label by magnitude.
+
+```{r timeline graphs without labels}
+
+quaketimeline_plot(eq_clean_testdata[1:12,], "1800-01-01","2014-01-01")
+
+```
+
+```{r timeline with labels}
+
+quaketimelinelabel_plot(eq_china_cleandata, "1800-01-01","2015-01-01", 3)
+
+```
+
+The second kind of visualization plots the epicenters of the selected 
+earthquakes on a map. The epicenters diameter will represent the magnitude
+of the earthquake, with the each data point showing further information when
+you click on it. The first graph will present the date of the earthquake
+when you click on it. The second will offer more detail.
+
+```{r epicenter mapping}
+
+eq_map(eq_china_cleandata, "DATE")
+
+```
+
+
+```{r epicenter mapping with info}
+
+  eq_clean_data(eq_test_data) %>% 
+  dplyr::filter(COUNTRY == "TURKEY" & lubridate::year(DATE) >= 1500) %>% 
+  dplyr::mutate(popup_text = eq_create_label(.)) %>% 
+  eq_map(annot_col = "popup_text")
+
+```
 
