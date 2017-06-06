@@ -13,13 +13,14 @@ vignette: >
 
 require(dplyr)
 require(shakerr)
+require(ggplot2)
 
 ```
 
 
 ## Introduction
 
-This package offers functionality to format earthquake data set downloaded from
+This package offers functionality to format earthquake data sets downloaded from
 the U.S. National Oceanographic and Atmospheric Administration (NOAA).
 
 Once the data set is formatted the package offers two ways to visualize the data.
@@ -73,9 +74,13 @@ data.
 The formatted data can be visualized into two ways, the first as a timeline and
 the second as points of occurence on a map.
 
-The following functions show how the a timeline may be graphed, with and 
-without labels. Note that with labels, the extra parameter indicating the 
-top number of earthquakes to label by magnitude.
+The following functions show how a timeline may be graphed, with and 
+without labels. The function `quaketimeline_plot` utilises the `GeomTimeline`
+and `StatTimeline` Geom and Stat respectively. Labelling the timelines requires
+`quaketimelinelabel_plot` which uses the `GeomTimelinelable` and 
+`StatTimelinelabel` Geom and Stat respectively. Note that with labels,
+the extra parameter indicates the top number of earthquakes to label by
+magnitude.
 
 ```{r timeline graphs without labels}
 
@@ -83,11 +88,40 @@ quaketimeline_plot(eq_clean_testdata[1:12,], "1800-01-01","2014-01-01")
 
 ```
 
+Instead of using the function, the underlying `geom_timeline` function may be
+used. Note that a minimum and maximum date need to be entered.
+
+```{r geom_timeline function}
+
+ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) + 
+  geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")
+
+```
+
+
+
 ```{r timeline with labels}
 
 quaketimelinelabel_plot(eq_china_cleandata, "1800-01-01","2015-01-01", 3)
 
 ```
+
+Again, going directly to the underlying function `geom_timelinelabel` is 
+possible if a little more flexibility is required.
+
+```{r}
+
+ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
+  geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01") +
+  geom_timelinelabel(ggplot2::aes_(magnitude = quote(EQ_PRIMARY),
+                                   label = quote(LOCATION_NAME),
+                                   col = NULL),
+                     x_min = "1800-01-01",
+                     x_max = "2015-01-01",
+                     n_max = 3)
+
+```
+
 
 The second kind of visualization plots the epicenters of the selected 
 earthquakes on a map. The epicenters diameter will represent the magnitude

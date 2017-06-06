@@ -1,7 +1,6 @@
 #' Geom class to support plotting geom_timeline
 #' @format NULL
 #' @usage NULL
-#' @export
 GeomTimelinelabel <- ggplot2::ggproto("GeomTimelinelabel", ggplot2::Geom,
                                  required_aes = c("x","label"),
                                  default_aes = ggplot2::aes( y = 1, x_min = NA,
@@ -84,7 +83,6 @@ geom_timelinelabel <- function(mapping = NULL, data = NULL,
 #' Stat class to support the GeomTimelinelabel class
 #' @format NULL
 #' @usage NULL
-#' @export
 StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
 
                          default_aes = ggplot2::aes(y = 1),
@@ -143,8 +141,6 @@ StatTimelinelabel <- ggplot2::ggproto("StatTimelinelabel", ggplot2::Stat,
 #' x_min = "1800-01-01",
 #' x_max = "2015-01-01",
 #' n_max = 3)
-#'
-#' @export
 stat_timelinelabel <- function(mapping = NULL, data = NULL, geom = "timelinelabel",
                           position = "identity", na.rm = FALSE,
                           show.legend = NA, inherit.aes = TRUE,x_min = NA,

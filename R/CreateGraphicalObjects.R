@@ -1,7 +1,6 @@
 #' Geom class to support plotting geom_timeline
 #' @format NULL
 #' @usage NULL
-#' @export
 GeomTimeline <- ggplot2::ggproto("GeomTimeline", ggplot2::Geom,
                   required_aes = c("x", "x_min", "x_max"),
                   default_aes = ggplot2::aes( shape = 19, colour = "black",
@@ -79,7 +78,6 @@ geom_timeline <- function(mapping = NULL, data = NULL,
 #' Stat class to support the GeomTimeline class
 #' @format NULL
 #' @usage NULL
-#' @export
 StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
 
                        setup_data = function(data, params){
@@ -119,7 +117,6 @@ StatTimeline <- ggplot2::ggproto("StatTimeline", ggplot2::Stat,
 #' ggplot(eq_china_cleandata, aes( x = DATE, y = as.factor(COUNTRY))) +
 #' geom_timeline( x_min = "1800-01-01", x_max = "2015-01-01")
 #'
-#' @export
 stat_timeline <- function(mapping = NULL, data = NULL, geom = "timeline",
                          position = "identity", na.rm = FALSE,
                          show.legend = NA, inherit.aes = TRUE, x_min,
