@@ -52,11 +52,6 @@ The first batch of tests check that test data can be cleaned and formatted
 appropriately. The second batch of tests, test if the graphing functions
 work as expected.
 
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Built With
 
 * [RStudio](https://www.rstudio.com) - The IDE application
